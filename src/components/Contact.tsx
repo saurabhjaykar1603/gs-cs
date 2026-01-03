@@ -1,9 +1,41 @@
+
+"use client";
 import React from 'react';
 import { MapPin, Phone, Mail, Send } from 'lucide-react';
 import { Card } from './ui/Card';
 import { Button } from './ui/Button';
 
 export const Contact = () => {
+  const [formData, setFormData] = React.useState({
+    name: '',
+    email: '',
+    phone: '',
+    message: ''
+  });
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.id]: e.target.value
+    });
+  };
+
+  const handleWhatsAppClick = () => {
+    const { name, email, phone, message } = formData;
+    
+    // Create the WhatsApp message
+    const whatsappMessage = `*New Inquiry*\n\n*Name:* ${name || 'Not provided'}\n*Email:* ${email || 'Not provided'}\n*Phone:* ${phone || 'Not provided'}\n\n*Message:*\n${message || 'No message provided'}`;
+    
+    // Encode the message for URL
+    const encodedMessage = encodeURIComponent(whatsappMessage);
+    
+    // WhatsApp URL with your number (8308209470)
+    const whatsappUrl = `https://wa.me/918308209470?text=${encodedMessage}`;
+    
+    // Open WhatsApp in a new tab
+    window.open(whatsappUrl, '_blank');
+  };
+
   return (
     <section id="contact" className="py-20 bg-gray-50">
       <div className="section-container">
@@ -44,8 +76,8 @@ export const Contact = () => {
               </div>
               <div>
                 <h4 className="font-semibold text-dark-900 mb-1">Phone</h4>
-                <a href="tel:8308209470" className="text-secondary-600 hover:text-secondary-700 font-medium">
-                  8308209470
+                <a href="tel:+918308209470" className="text-secondary-600 hover:text-secondary-700 font-medium">
+                  +91 83082 09470
                 </a>
               </div>
             </Card>
@@ -67,7 +99,7 @@ export const Contact = () => {
           {/* Right: Contact Form */}
           <Card hover={false}>
             <h3 className="text-2xl font-bold text-dark-900 mb-6">Send us a Message</h3>
-            <form className="space-y-4">
+            <div className="space-y-4">
               <div>
                 <label htmlFor="name" className="block text-sm font-medium text-dark-700 mb-2">
                   Full Name
@@ -75,6 +107,8 @@ export const Contact = () => {
                 <input
                   type="text"
                   id="name"
+                  value={formData.name}
+                  onChange={handleInputChange}
                   className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
                   placeholder="Sagar Gupta"
                 />
@@ -87,6 +121,8 @@ export const Contact = () => {
                 <input
                   type="email"
                   id="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
                   className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
                   placeholder="your@email.com"
                 />
@@ -99,8 +135,10 @@ export const Contact = () => {
                 <input
                   type="tel"
                   id="phone"
+                  value={formData.phone}
+                  onChange={handleInputChange}
                   className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
-                  placeholder="8308209470"
+                  placeholder="+91 83082 09470"
                 />
               </div>
 
@@ -111,16 +149,23 @@ export const Contact = () => {
                 <textarea
                   id="message"
                   rows={5}
+                  value={formData.message}
+                  onChange={handleInputChange}
                   className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all resize-none"
                   placeholder="Tell us about your security needs..."
                 />
               </div>
 
-              <Button type="button" variant="primary" className="w-full">
-                Send Message
+              <Button 
+                type="button" 
+                variant="primary" 
+                className="w-full"
+                onClick={handleWhatsAppClick}
+              >
+                Send via WhatsApp
                 <Send className="inline-block ml-2 w-5 h-5" />
               </Button>
-            </form>
+            </div>
           </Card>
         </div>
       </div>
