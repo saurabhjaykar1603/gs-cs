@@ -11,7 +11,6 @@ import { SlidersHorizontal } from 'lucide-react';
 export default function ProductsPage() {
   const [filters, setFilters] = useState<FilterState>({
     category: 'All',
-    priceRange: [0, 50000],
     sortBy: 'none',
   });
 
@@ -22,10 +21,7 @@ export default function ProductsPage() {
     let result = products.filter((product) => {
       const categoryMatch =
         filters.category === 'All' || product.category === filters.category;
-      const priceMatch =
-        product.price >= filters.priceRange[0] &&
-        product.price <= filters.priceRange[1];
-      return categoryMatch && priceMatch;
+      return categoryMatch;
     });
 
     // Sort
@@ -96,41 +92,6 @@ export default function ProductsPage() {
                 </div>
               </div>
 
-              {/* Price Range */}
-              <div className="mb-6">
-                <h3 className="font-semibold text-dark-900 mb-3">Price Range</h3>
-                <div className="space-y-3">
-                  <div>
-                    <label className="text-sm text-dark-600">Min Price</label>
-                    <input
-                      type="number"
-                      value={filters.priceRange[0]}
-                      onChange={(e) =>
-                        setFilters({
-                          ...filters,
-                          priceRange: [Number(e.target.value), filters.priceRange[1]],
-                        })
-                      }
-                      className="w-full mt-1 px-3 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500"
-                    />
-                  </div>
-                  <div>
-                    <label className="text-sm text-dark-600">Max Price</label>
-                    <input
-                      type="number"
-                      value={filters.priceRange[1]}
-                      onChange={(e) =>
-                        setFilters({
-                          ...filters,
-                          priceRange: [filters.priceRange[0], Number(e.target.value)],
-                        })
-                      }
-                      className="w-full mt-1 px-3 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500"
-                    />
-                  </div>
-                </div>
-              </div>
-
               {/* Sort By */}
               <div>
                 <h3 className="font-semibold text-dark-900 mb-3">Sort By</h3>
@@ -155,7 +116,6 @@ export default function ProductsPage() {
                 onClick={() =>
                   setFilters({
                     category: 'All',
-                    priceRange: [0, 50000],
                     sortBy: 'none',
                   })
                 }
@@ -179,7 +139,6 @@ export default function ProductsPage() {
                   onClick={() =>
                     setFilters({
                       category: 'All',
-                      priceRange: [0, 50000],
                       sortBy: 'none',
                     })
                   }

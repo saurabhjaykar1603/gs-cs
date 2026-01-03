@@ -48,8 +48,9 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         </p>
 
         {/* Price and Button */}
-        <div className="flex items-center justify-between mt-auto">
-          <div>
+        <div className="flex flex-col gap-3 mt-auto">
+          <div className="flex flex-col">
+            <span className="text-xs text-dark-500 mb-1">Price</span>
             <span className="text-2xl font-bold text-primary-600">
               ₹{product.price.toLocaleString()}
             </span>
@@ -59,12 +60,12 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             size="sm"
             onClick={handleAddToCart}
             isLoading={isAdding}
-            className="group-hover:scale-105"
+            className="group-hover:scale-105 w-full"
           >
             {isAdding ? 'Added!' : (
               <>
                 <ShoppingCart className="w-4 h-4 mr-1" />
-                Add
+                Add to Cart
               </>
             )}
           </Button>

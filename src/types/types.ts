@@ -13,6 +13,5 @@ export interface CartItem extends Product {
 
 export interface FilterState {
   category: string;
-  priceRange: [number, number];
   sortBy: 'price-asc' | 'price-desc' | 'none';
 }
