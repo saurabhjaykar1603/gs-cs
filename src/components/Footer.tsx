@@ -16,7 +16,7 @@ export const Footer = () => {
     { name: 'Facebook', icon: Facebook, href: '#' },
     { name: 'Twitter', icon: Twitter, href: '#' },
     { name: 'LinkedIn', icon: Linkedin, href: '#' },
-    { name: 'Instagram', icon: Instagram, href: '#' },
+    { name: 'Instagram', icon: Instagram, href: 'https://www.instagram.com/gs_enterprises_security?igsh=MTNjajBwM2FxbzQ0ZQ==' },
   ];
 
   return (
